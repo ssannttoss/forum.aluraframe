@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB</title>
+</head>
+<body>
+    <script src="js/libs/snts.js"></script>
+    <script src="js/app/services/ConnectionFactory.js"></script>
+    <script src="js/app/models/entities/Entity.js"></script>
+    <script src="js/app/models/entities/Negociacao.js"></script>
+    <script src="js/app/models/repositories/daos/BaseDao.js"></script>
+    <script src="js/app/models/repositories/daos/NegociacaoDao.js"></script>
+
+    <!--<script>
+        // https://developer.mozilla.org/pt-BR/docs/IndexedDB
+        var str_negociacao = "negociacao";
+        var openRequest = window.indexedDB.open("aluraframe2",1);
+        var connection;
+        openRequest.onupgradeneeded = e => {
+            detailEvent(e);
+            // cria ou altera um banco já existente
+            console.info("Cria ou altera um banco já existe");
+            connection = e.target.result;
+
+            if (connection.objectStoreNames.contains(str_negociacao)) {
+                connection.deleteObjectStore(str_negociacao);
+            }
+
+            connection.createObjectStore(str_negociacao, { autoIncrement: true});
+        }
+        openRequest.onsuccess = e => {
+            detailEvent(e);
+            console.info("Conexão obtida com sucesso");
+            connection = e.target.result;
+        }
+        openRequest.onerror = e => {
+             detailEvent(e);
+            console.error(e.target.error);
+        } 
+
+        function adiciona() {
+            let transaction = connection.transaction(str_negociacao, "readwrite");
+
+            transaction.onerror = e => {
+                console.error(e.target.error.name);
+            }
+
+            let store = transaction.objectStore(str_negociacao);
+            let negociacao = new Negociacao(new Date(), 1, 200);
+            let request = store.add(negociacao); 
+            request.onsuccess = e => {
+                console.info(`Negociação ${negociacao} incluída com sucesso. Id: ${e.target.result}`);
+            };       
+
+            request.onerror = e => {
+                console.info(`Falha ao incluir a negociação ${negociacao}.`);
+            }
+        }  
+
+        function listarTodos() {
+            let transaction = connection.transaction(str_negociacao, "readwrite");
+            let store = transaction.objectStore(str_negociacao);
+            let cursor = store.openCursor();
+            let negociacoes = [];
+            cursor.onsuccess = e => {
+                let current = e.target.result;
+
+                if (current) {
+                    let read = current.value;
+                    let negociacao = new Negociacao(read._data, read._quantidade, read._valor);
+                    negociacoes.push(negociacao);
+                    current.continue();
+                } else {
+                    console.info(negociacoes);
+                    
+                }
+            }
+
+            cursor.onerror = e => {
+                console.error(e.target.error.name);
+            }
+        }  
+
+    </script>    -->
+</body>
+</html>
